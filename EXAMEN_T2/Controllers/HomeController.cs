@@ -1,9 +1,13 @@
 ﻿using EXAMEN_T2.Models;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
 namespace EXAMEN_T2.Controllers
 {
+    [Authorize]
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
@@ -28,5 +32,18 @@ namespace EXAMEN_T2.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
+        public async Task<IActionResult> Salir()
+        {
+            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+            return RedirectToAction("Login","Acceso");
+        }
+        [HttpGet]
+        public IActionResult Login()
+        {
+            if (User.Identity!.IsAuthenticated) return RedirectToAction("Index", "Home");
+            return View();
+        }
+
+
     }
 }
