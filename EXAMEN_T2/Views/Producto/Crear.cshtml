@@ -1,0 +1,74 @@
+﻿@model ProductoDTO
+@{
+
+}
+
+<div class="row">
+    <div class="col-md-8 p-3 mx-auto rounded border">
+        <h2 class="mb-5 text-center">Nuevo Producto</h2>
+
+        <form method="POST" enctype="multipart/form-data">
+            <div class="row mb-3">
+                <label class="col-sm-4 col-form-label">Nombre</label>
+                <div class="col-sm-8">
+                    <input class="form-control" asp-for="Nombre" />
+                    <span asp-validation-for="Nombre" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <label class="col-sm-4 col-form-label">Marca</label>
+                <div class="col-sm-8">
+                    <input class="form-control" asp-for="Marca" />
+                    <span asp-validation-for="Marca" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <label class="col-sm-4 col-form-label">Categoría</label>
+                <div class="col-sm-8">
+                    <select class="form-select" asp-for="Categoria">
+                        <option value="Otra">Otra</option>
+                        <option value="Telefonos">Teléfonos</option>
+                        <option value="Computadoras">Computadoras</option>
+                        <option value="Accesorios">Accesorios</option>
+                        <option value="Impresoras">Impresoras</option>
+                        <option value="Camaras">Cámaras</option>
+                    </select>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <label class="col-sm-4 col-form-label">Precio</label>
+                <div class="col-sm-8">
+                    <input class="form-control" asp-for="Precio" />
+                    <span asp-validation-for="Precio" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <label class="col-sm-4 col-form-label">Descripción</label>
+                <div class="col-sm-8">
+                    <textarea class="form-control" asp-for="Descripcion"></textarea>
+                    <span asp-validation-for="Descripcion" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <label class="col-sm-4 col-form-label">Imagen</label>
+                <div class="col-sm-8">
+                    <input class="form-control" asp-for="ArchivoImagen" />
+                    <span asp-validation-for="ArchivoImagen" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="offset-sm-4 col-sm-4 d-grid">
+                    <button type="submit" class="btn btn-primary">Enviar</button>
+                </div>
+                <div class="col-sm-4 d-grid">
+                    <a class="btn btn-outline-primary" asp-controller="Producto" asp-action="Index" role="button">
+                        Cancelar
+                    </a>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

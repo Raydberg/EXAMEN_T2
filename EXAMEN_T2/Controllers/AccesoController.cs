@@ -76,7 +76,7 @@ namespace EXAMEN_T2.Controllers
                 CookieAuthenticationDefaults.AuthenticationScheme,
                 new ClaimsPrincipal(claimsIdentity), propiedades);
 
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Index", "Producto");
         }
 
 

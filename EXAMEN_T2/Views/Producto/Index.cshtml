@@ -1,46 +1,45 @@
 ﻿@model List<Producto>
+@using System.Security.Claims;
+<div class="text-center">
 
+    @if (User.Identity!.IsAuthenticated)
+    {
+        <h1>
+            Bienvenido @User.Claims.Where(c => c.Type == ClaimTypes.Name).Select(c => c.Value).SingleOrDefault()
+        </h1>
+    }
+
+</div>
 <h2 class="mb-5 text-center">Lista de Productos</h2>
 
 <div class="row mb-5">
     <div class="col">
-        <a class="btn btn-primary" asp-controller="Productos" asp-action="Crear">Nuevo Producto</a>
-    </div>
-    <div class="col">
+        <a class="btn btn-primary" asp-controller="Producto" asp-action="Crear">Nuevo Producto</a>
     </div>
 </div>
-<table class="table">
-    <thead>
-        <tr>
-            <th>ID</th>
-            <th>Nombre</th>
-            <th>Marca</th>
-            <th>Categoria</th>
-            <th>Precio</th>
-            <th>Imagen</th>
-            <th>Fecha Creación</th>
-            <th>Accion</th>
-        </tr>
-    </thead>
- <tbody>
-         @foreach (var prod in Model)
-        {
-            <tr>
-                <td>@prod.IdProducto</td>
-                <td>@prod.Nombre</td>
-                <td>@prod.Marca</td>
-                <td>@prod.Categoria</td>
-                <td>S/ @prod.Precio</td>
-                <td><img src="/imagenes/@prod.Imagen" width="100"></img></td>
-                <td>@prod.FechaCreacion.ToString("dd/MMM/yyyy")</td>
-                <td style="white-space:nowrap">
-                    <a class="btn btn-primary btn-sm" asp-controller="Productos" asp-action="Editar"
-                    asp-route-id="@prod.IdProducto">Editar</a>
-                    <a class="btn btn-danger btn-sm" asp-controller="Productos" asp-action="Eliminar"
-                       asp-route-id="@prod.IdProducto" onclick="return confirm('Está seguro de eliminar el producto?')">Eliminar</a>
-                </td>
 
-            </tr>
-        }
-    </tbody>
-</table>
+<div class="row">
+    @foreach (var prod in Model)
+    {
+        <div class="col-md-4 mb-4">
+            <div class="card">
+                <img class="card-img-top card-img-custom" src="/imagenes/@prod.Imagen" alt="Imagen de @prod.Nombre">
+                <div class="card-body">
+                    <h5 class="card-title">@prod.Nombre</h5>
+                    <p class="card-text">Marca: @prod.Marca</p>
+                    <p class="card-text">Categoría: @prod.Categoria</p>
+                    <p class="card-text">Precio: S/ @prod.Precio</p>
+                    <p class="card-text">Fecha de Creación: @prod.FechaCreacion.ToString("dd/MMM/yyyy")</p>
+                    <a class="btn btn-primary btn-sm" asp-controller="Producto" asp-action="Editar" asp-route-id="@prod.IdProducto">Editar</a>
+                    <a class="btn btn-danger btn-sm" asp-controller="Producto" asp-action="Eliminar" asp-route-id="@prod.IdProducto" onclick="return confirm('Está seguro de eliminar el producto?')">Eliminar</a>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+<style>
+    .card-img-custom {
+        width: 80px; /* O el tamaño que prefieras */
+        height: auto; /* Mantiene la proporción de la imagen */
+    }
+</style>
